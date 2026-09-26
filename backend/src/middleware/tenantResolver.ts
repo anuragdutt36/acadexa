@@ -28,15 +28,15 @@ export class TenantResolver {
     const querySlug = req.query.institutionSlug as string;
     if (querySlug) return { slug: querySlug.toLowerCase().trim() };
 
-    // 3. Check Subdomain (e.g. knit.facultyfeedback.vercel.app -> "knit")
+    // 3. Check Subdomain (e.g. knit.acadexa-fb.vercel.app -> "knit")
     const hostname = req.hostname || req.headers.host?.split(":")[0] || "";
     const cleanHost = hostname.toLowerCase().trim();
 
     // Ignore apex domains, platform domains, and localhost apex
     const platformHosts = [
-      "facultyfeedback.vercel.app",
-      "facultyfeedback.in",
-      "facultyfeedback.com",
+      "acadexa-fb.vercel.app",
+      "acadexa.in",
+      "acadexa.com",
       "localhost",
       "127.0.0.1",
     ];

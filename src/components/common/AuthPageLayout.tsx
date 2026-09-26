@@ -3,9 +3,9 @@ import { Link } from "react-router";
 import { GraduationCap, AlertCircle } from "lucide-react";
 
 export interface AuthPageLayoutProps {
-  /** Top Header Brand Title (Default: "Faculty Feedback") */
+  /** Top Header Brand Title (Default: "Acadexa") */
   brandTitle?: string;
-  /** Top Header Subtitle (Default: "Academic Feedback Platform") */
+  /** Top Header Subtitle (Default: "Intelligent Academic Feedback & Evaluation Platform") */
   brandSubtitle?: string;
   /** Custom action on top-right of header */
   headerRightAction?: React.ReactNode;
@@ -36,13 +36,13 @@ export interface AuthPageLayoutProps {
   /** Additional content placed below the card */
   belowCardContent?: React.ReactNode;
 
-  /** Footer text (Default: "Faculty Feedback Platform • Academic Quality Governance") */
+  /** Footer text (Default: "Acadexa • Academic Quality Governance") */
   footerText?: string;
 }
 
 export const AuthPageLayout: React.FC<AuthPageLayoutProps> = ({
-  brandTitle = "Faculty Feedback",
-  brandSubtitle = "Academic Feedback Platform",
+  brandTitle = "Acadexa",
+  brandSubtitle = "Intelligent Academic Feedback & Evaluation Platform",
   headerRightAction,
   icon,
   title,

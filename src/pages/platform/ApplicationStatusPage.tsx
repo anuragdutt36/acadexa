@@ -54,7 +54,7 @@ export const ApplicationStatusPage: React.FC = () => {
             <Shield className="w-4 h-4" />
           </div>
           <div>
-            <span className="font-bold tracking-tight text-slate-900 text-sm sm:text-base">Faculty Feedback Platform</span>
+            <span className="font-bold tracking-tight text-slate-900 text-sm sm:text-base">Acadexa</span>
             <span className="text-xs text-slate-500 block -mt-0.5">Institution Application Tracker</span>
           </div>
         </Link>
@@ -278,7 +278,7 @@ export const ApplicationStatusPage: React.FC = () => {
 
       {/* Footer */}
       <footer className="border-t border-slate-200 bg-white py-4 text-center text-xs text-slate-500">
-        Faculty Feedback Multi-Institution Platform • Verification Engine
+        Acadexa Multi-Institution Platform • Verification Engine
       </footer>
     </div>
   );

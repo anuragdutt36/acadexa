@@ -6,7 +6,7 @@ import mongoose from "mongoose";
 export class SettingsService {
   private static getDefaultSettingsTemplate() {
     return {
-      systemName: "Faculty Feedback",
+      systemName: "Acadexa",
       instituteName: "Institution",
       academicYear: "2026-27",
       googleLoginEnabled: true,
@@ -53,7 +53,7 @@ export class SettingsService {
     if (!settings) {
       settings = await SystemSettings.create({
         institutionId: canonicalId,
-        systemName: inst.settings?.systemName || inst.name || "Faculty Feedback",
+        systemName: inst.settings?.systemName || inst.name || "Acadexa",
         instituteName: inst.name || "Institution",
         academicYear: "2026-27",
         googleLoginEnabled: inst.settings?.googleLoginEnabled ?? true,

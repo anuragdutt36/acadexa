@@ -1,6 +1,6 @@
 # System Architecture
 
-**Faculty Feedback Management System — KNIT Sultanpur**
+**Acadexa — KNIT Sultanpur**
 
 ---
 

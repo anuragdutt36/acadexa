@@ -15,7 +15,7 @@ interface SettingsContextProps {
 }
 
 const SettingsContext = createContext<SettingsContextProps>({
-  systemName: "Faculty Feedback",
+  systemName: "Acadexa",
   instituteName: "Institution",
   logoUrl: "",
   campusImageUrl: "",
@@ -37,7 +37,7 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     });
   }, []);
 
-  const [systemName, setSystemName] = useState("Faculty Feedback");
+  const [systemName, setSystemName] = useState("Acadexa");
   const [instituteName, setInstituteName] = useState("Institution");
   const [logoUrl, setLogoUrl] = useState("");
   const [campusImageUrl, setCampusImageUrl] = useState("");
@@ -51,7 +51,7 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     try {
       const res = await settingsService.getSettings();
       if (res?.success && res.data) {
-        setSystemName(res.data.systemName || "Faculty Feedback");
+        setSystemName(res.data.systemName || "Acadexa");
         setInstituteName(res.data.instituteName || "Institution");
         setLogoUrl(res.data.logoUrl || "");
         setCampusImageUrl(res.data.campusImageUrl || "");
@@ -67,7 +67,7 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
           sessionStorage.setItem(`tenant_${tenantKey}_name`, res.data.instituteName || "");
         }
         
-        document.title = `${res.data.systemName || "Faculty Feedback"} System`;
+        document.title = `${res.data.systemName || "Acadexa"} — Intelligent Academic Feedback & Evaluation Platform`;
       }
     } catch (error) {
       console.error("Failed to load tenant settings", error);

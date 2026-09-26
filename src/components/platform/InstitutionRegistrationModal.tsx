@@ -142,7 +142,7 @@ export const InstitutionRegistrationModal: React.FC<Props> = ({
                 Institution Registration
               </h2>
               <p className="text-[11px] text-slate-500">
-                Deploy an independent faculty feedback &amp; accreditation evaluation portal
+                Deploy an independent academic feedback &amp; evaluation portal on Acadexa
               </p>
             </div>
           </div>

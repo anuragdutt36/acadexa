@@ -46,7 +46,7 @@ const CampusImageSchema = new Schema<ICampusImage>(
 const SystemSettingsSchema = new Schema<ISystemSettings>(
   {
     institutionId: { type: Schema.Types.ObjectId, ref: "Institution", unique: true, sparse: true, index: true },
-    systemName: { type: String, required: true, default: "Faculty Feedback" },
+    systemName: { type: String, required: true, default: "Acadexa" },
     instituteName: { type: String, required: true, default: "Institution" },
     academicYear: { type: String, required: true, default: "2026-27" },
 

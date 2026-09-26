@@ -3,9 +3,9 @@ const fs = require("fs");
 const reportsServicePath = "backend/src/services/reports.service.ts";
 let serviceContent = fs.readFileSync(reportsServicePath, "utf-8");
 
-if (!serviceContent.includes("getFacultyFeedbackRecords")) {
+if (!serviceContent.includes("getacadexaRecords")) {
   const newMethod = `
-  static async getFacultyFeedbackRecords(facultyUserId: string) {
+  static async getacadexaRecords(facultyUserId: string) {
     const faculty = await FacultyProfile.findOne({ userId: facultyUserId }).populate("branchId");
     if (!faculty) throw new CustomError("Faculty profile not found", 404);
 
@@ -120,7 +120,7 @@ if (!controllerContent.includes("getMyFeedbackRecords")) {
       if (!req.user || req.user.role !== "faculty") {
         throw new CustomError("Access denied: Faculty permissions required", 403);
       }
-      const records = await ReportsService.getFacultyFeedbackRecords(req.user.id);
+      const records = await ReportsService.getacadexaRecords(req.user.id);
       return res.status(200).json(ApiResponse.success("My feedback records fetched", { records }));
     } catch (error) {
       next(error);

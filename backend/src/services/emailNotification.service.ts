@@ -11,7 +11,7 @@ export interface EmailOptions {
 }
 
 export class EmailNotificationService {
-  private static accessKey: string = env.WEB3FORMS_ACCESS_KEY || "c4466b0a-7f61-460d-a36c-9dd6774e443a";
+  private static accessKey: string = env.WEB3FORMS_ACCESS_KEY;
 
   static async sendNotification(options: EmailOptions): Promise<{ success: boolean; message: string }> {
     const { to, subject, body, notificationType, institutionId, applicationId } = options;
@@ -30,7 +30,7 @@ export class EmailNotificationService {
           body: JSON.stringify({
             access_key: this.accessKey,
             subject: subject,
-            from_name: "Faculty Feedback Platform Administration",
+            from_name: "Acadexa Platform Administration",
             to_email: to,
             message: body,
           }),
@@ -95,7 +95,7 @@ export class EmailNotificationService {
     const body = `
 Dear ${representativeName},
 
-Congratulations! Your application to onboard ${institutionName} to the Faculty Feedback Management Platform has been formally verified and approved.
+Congratulations! Your application to onboard ${institutionName} to Acadexa has been formally verified and approved.
 
 ==================================================
 INSTITUTION TENANT DETAILS
@@ -103,7 +103,7 @@ INSTITUTION TENANT DETAILS
 Institution: ${institutionName}
 Tenant Identifier: ${institutionId}
 Portal URL Slug: /college/${slug}
-Public Portal: https://facultyfeedback.vercel.app/college/${slug}
+Public Portal: https://acadexa-fb.vercel.app/college/${slug}
 
 ==================================================
 ACCOUNT ACTIVATION & SECURITY
@@ -121,8 +121,8 @@ If you have any questions or require assistance setting up your academic semeste
 
 Sincerely,
 Platform Administration Team
-Faculty Feedback Management System
-https://facultyfeedback.vercel.app
+Acadexa — Intelligent Academic Feedback & Evaluation Platform
+https://acadexa.in
 `;
 
     return this.sendNotification({

@@ -28,7 +28,7 @@ export class ReportsService {
     return { name, address };
   }
 
-  static async getFacultyFeedbackRecords(facultyUserId: string, institutionId?: string) {
+  static async getacadexaRecords(facultyUserId: string, institutionId?: string) {
     const UserModule = await import("../models/user.model.js");
     const User = UserModule.User;
 
@@ -696,7 +696,7 @@ export class ReportsService {
   // --- Excel Generators ---
   static async generateIndividualFacultyExcel(data: any, institutionId?: string): Promise<Buffer> {
     const workbook = new ExcelJS.Workbook();
-    const sheet = workbook.addWorksheet("Faculty Feedback Report");
+    const sheet = workbook.addWorksheet("Acadexa Report");
 
     const branding = await this.getInstitutionBranding(institutionId || data.institutionId);
 
@@ -708,7 +708,7 @@ export class ReportsService {
     sheet.getCell("A1").alignment = { horizontal: "center", vertical: "middle" };
 
     sheet.mergeCells("A2:E2");
-    sheet.getCell("A2").value = "INDIVIDUAL FACULTY FEEDBACK REPORT";
+    sheet.getCell("A2").value = "INDIVIDUAL Acadexa REPORT";
     sheet.getCell("A2").font = { name: "Calibri", size: 12, bold: true, color: { argb: "0B3D91" } };
     sheet.getCell("A2").alignment = { horizontal: "center" };
 

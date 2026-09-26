@@ -25,7 +25,7 @@ export const Header: React.FC<HeaderProps> = ({ onToggleMobileMenu }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const displayName = tenantInst?.settings?.systemName || tenantInst?.name || globalSystemName || (portalSlug ? portalSlug.toUpperCase() : "Faculty Feedback");
+  const displayName = tenantInst?.settings?.systemName || tenantInst?.name || globalSystemName || (portalSlug ? portalSlug.toUpperCase() : "Acadexa");
 
   const [unreadCount, setUnreadCount] = useState(0);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
@@ -160,10 +160,10 @@ export const Header: React.FC<HeaderProps> = ({ onToggleMobileMenu }) => {
               className={`font-bold text-xs sm:text-base leading-tight truncate ${textPrimary}`}
               style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
             >
-              {displayName} Faculty Feedback System
+              {displayName}
             </span>
             <span className={`text-[10px] sm:text-[11px] leading-tight truncate capitalize ${textSub}`}>
-              {user.role} Portal
+              {user.role} Portal {tenantInst ? "• Powered by Acadexa" : "• Acadexa"}
             </span>
           </div>
         </div>

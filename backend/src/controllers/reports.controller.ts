@@ -13,7 +13,7 @@ export class ReportsController {
         throw new CustomError("Access denied: Faculty permissions required", 403);
       }
       const institutionId = req.user.institutionId || req.institutionId;
-      const data = await ReportsService.getFacultyFeedbackRecords(req.user.id, institutionId ? institutionId.toString() : undefined);
+      const data = await ReportsService.getacadexaRecords(req.user.id, institutionId ? institutionId.toString() : undefined);
       return res.status(200).json(ApiResponse.success("My feedback records fetched", data));
     } catch (error) {
       next(error);

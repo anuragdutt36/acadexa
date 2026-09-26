@@ -367,7 +367,7 @@ export const PlatformApproveApplicationPage: React.FC = () => {
                     className={`w-full bg-transparent px-3 py-2 font-mono text-xs focus:outline-none ${dark ? "text-slate-100" : "text-slate-900"}`}
                   />
                   <span className={`px-3 font-mono text-[11px] border-l ${dark ? "text-slate-400 border-slate-800 bg-slate-950/60" : "text-slate-500 border-slate-200 bg-slate-50"}`}>
-                    .facultyfeedback.vercel.app
+                    .acadexa-fb.vercel.app
                   </span>
                 </div>
                 <p className={`text-[11px] mt-1 ${dark ? "text-slate-400" : "text-slate-500"}`}>

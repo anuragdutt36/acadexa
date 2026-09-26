@@ -60,7 +60,7 @@ export const FacultyPerformanceReport: React.FC<Props> = ({ data, onClose }) => 
         <div>
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-500/10 text-[#0B3D91] dark:text-blue-400 text-xs font-semibold mb-2 border border-blue-100 dark:border-blue-500/20">
             <FileText size={12} />
-            <span>Faculty Feedback Report • {data.academicYear}</span>
+            <span>Acadexa Report • {data.academicYear}</span>
           </div>
           <h1 className="text-xl sm:text-2xl font-bold tracking-tight">
             {data.subjectName}
@@ -201,7 +201,7 @@ export const FacultyPerformanceReport: React.FC<Props> = ({ data, onClose }) => 
       )}
 
       <div className="pt-3 border-t border-slate-200 dark:border-white/10 flex items-center justify-between text-[11px] text-slate-400">
-        <span>Confidential Faculty Feedback Dossier</span>
+        <span>Confidential Acadexa Dossier</span>
         <span>No PII / Identifiable Student Data Retained</span>
       </div>
     </div>

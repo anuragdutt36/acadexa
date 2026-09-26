@@ -26,7 +26,7 @@ export const Settings: React.FC = () => {
 
   // Simplified settings state matching revised Mongoose schema
   const [settings, setSettings] = useState<any>({
-    systemName: "Faculty Feedback",
+    systemName: "Acadexa",
     instituteName: "Institution",
     academicYear: "2026-27",
     googleLoginEnabled: true,
@@ -54,7 +54,7 @@ export const Settings: React.FC = () => {
       const res = await settingsService.getSettings();
       if (res?.success && res.data) {
         setSettings(res.data);
-        document.title = `${res.data.systemName || "Faculty Feedback"} System`;
+        document.title = `${res.data.systemName || "Acadexa"} — Intelligent Academic Feedback & Evaluation Platform`;
       }
     } catch (err: any) {
       console.error("Failed to load settings", err);
@@ -71,7 +71,7 @@ export const Settings: React.FC = () => {
       const res = await settingsService.updateSettings(settings);
       if (res?.success) {
         showNotification("success", "System settings updated and saved successfully!");
-        document.title = `${settings.systemName || "Faculty Feedback"} System`;
+        document.title = `${settings.systemName || "Acadexa"} — Intelligent Academic Feedback & Evaluation Platform`;
         window.dispatchEvent(new Event("storage"));
       }
     } catch (err: any) {
@@ -243,7 +243,7 @@ export const Settings: React.FC = () => {
 
   return (
     <div>
-      <ModHeader title="System Settings" sub={`Configure the ${settings.systemName} Faculty Feedback System`} dark={dark}>
+      <ModHeader title="System Settings" sub={`Configure ${settings.systemName || "Acadexa"} Academic Feedback System`} dark={dark}>
         <ModBtn icon={SquareCheck} variant="primary" onClick={handleSaveChanges} disabled={saving}>
           {saving ? <Loader2 size={13} className="animate-spin" /> : "Save Changes"}
         </ModBtn>

@@ -187,7 +187,7 @@ export const PlatformAdminLayout: React.FC = () => {
             <div>
               <div className="flex items-center gap-2">
                 <span className={`font-bold tracking-tight text-sm sm:text-base ${dark ? "text-white" : "text-slate-900"}`}>
-                  Faculty Feedback
+                  Acadexa
                 </span>
                 <span className="text-[10px] font-semibold tracking-wider px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 uppercase">
                   Platform Admin

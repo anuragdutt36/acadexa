@@ -215,8 +215,8 @@ export const PlatformLandingPage: React.FC = () => {
 
   const faqs = [
     {
-      q: "How does the Faculty Feedback System guarantee student anonymity?",
-      a: "The platform separates student identity from feedback payloads before database persistence. When a student logs in, their token verifies enrollment eligibility and flags their one-time submission token without storing any link between their user record and their individual rating scores or written comments."
+      q: "How does Acadexa guarantee student anonymity?",
+      a: "Acadexa separates student identity from feedback payloads before database persistence. When a student logs in, their token verifies enrollment eligibility and flags their one-time submission token without storing any link between their user record and their individual rating scores or written comments."
     },
     {
       q: "Can our university host distinct portals for multiple constituent colleges?",
@@ -252,7 +252,7 @@ export const PlatformLandingPage: React.FC = () => {
             </div>
             <div>
               <span className="font-bold tracking-tight text-slate-900 text-sm sm:text-base">
-                Faculty Feedback Platform
+                Acadexa
               </span>
             </div>
           </Link>
@@ -309,7 +309,7 @@ export const PlatformLandingPage: React.FC = () => {
           {/* Tag */}
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-[#0B3D91] text-xs font-semibold">
             <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-            <span>Multi-Institution Academic Platform</span>
+            <span>Acadexa — Multi-Institution Academic Platform</span>
             <span className="text-slate-300">·</span>
             <span className="text-slate-600 font-normal">NAAC &amp; NBA Aligned</span>
           </div>
@@ -388,7 +388,7 @@ export const PlatformLandingPage: React.FC = () => {
               Engineered for Institutional Trust &amp; Performance
             </h2>
             <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
-              Every feature of the Faculty Feedback System is designed to solve real-world university governance challenges:
+              Every feature of Acadexa is designed to solve real-world university governance challenges:
               ensuring high student turnout, guaranteeing absolute privacy, and providing transparent academic insights.
             </p>
           </div>
@@ -803,7 +803,7 @@ export const PlatformLandingPage: React.FC = () => {
               Frequently Asked Questions
             </h2>
             <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
-              Have questions about deploying the Faculty Feedback System at your institution? Here are answers to common inquiries.
+              Have questions about deploying Acadexa at your institution? Here are answers to common inquiries.
             </p>
           </div>
 
@@ -889,11 +889,11 @@ export const PlatformLandingPage: React.FC = () => {
                   <GraduationCap size={16} />
                 </div>
                 <span className="font-bold text-slate-900 text-sm tracking-tight">
-                  Faculty Feedback Platform
+                  Acadexa
                 </span>
               </div>
               <p className="text-xs text-slate-500 leading-relaxed">
-                Enterprise academic feedback and quality analytics infrastructure for universities and colleges.
+                Intelligent academic feedback, faculty evaluation, and quality analytics platform.
               </p>
               <div className="text-[11px] text-[#0B3D91] font-medium">
                 Multi-Tenant · Anonymous · NAAC Ready
@@ -934,7 +934,7 @@ export const PlatformLandingPage: React.FC = () => {
           </div>
 
           <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500">
-            <p>© {new Date().getFullYear()} Faculty Feedback Platform. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} Acadexa. All rights reserved.</p>
             <div className="flex items-center gap-3 text-[11px]">
               <span>Multi-Tenant Architecture</span>
               <span>·</span>

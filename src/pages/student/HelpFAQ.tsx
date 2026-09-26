@@ -82,7 +82,7 @@ export const HelpFAQ: React.FC = () => {
       {/* Header */}
       <div>
         <h1 className={`text-xl sm:text-2xl font-bold ${textPrimary}`} style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Help & FAQ</h1>
-        <p className={`text-xs sm:text-sm ${textSub} mt-0.5`}>Find answers to common questions about the Faculty Feedback System</p>
+        <p className={`text-xs sm:text-sm ${textSub} mt-0.5`}>Find answers to common questions about Acadexa</p>
       </div>
 
       {/* Search */}

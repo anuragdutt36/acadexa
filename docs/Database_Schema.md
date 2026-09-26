@@ -1,6 +1,6 @@
 # Database Schema
 
-**Faculty Feedback Management System — MongoDB / Mongoose**
+**Acadexa — MongoDB / Mongoose**
 
 ---
 

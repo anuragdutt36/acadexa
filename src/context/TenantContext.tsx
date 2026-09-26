@@ -55,7 +55,7 @@ const TenantContext = createContext<TenantContextType>({
   error: null,
   isTenantPortal: false,
   portalSlug: "",
-  tenantName: "Faculty Feedback System",
+  tenantName: "Acadexa",
   accentColor: "#0B3D91",
   domainRestriction: "",
   isSuspended: false,
@@ -77,9 +77,9 @@ export const TenantProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       return pathMatch[1].toLowerCase().trim();
     }
 
-    // 3. Subdomain check (e.g. knit.facultyfeedback.vercel.app -> "knit")
+    // 3. Subdomain check (e.g. knit.acadexa-fb.vercel.app -> "knit")
     const hostname = window.location.hostname.toLowerCase();
-    const platformDomains = ["facultyfeedback.vercel.app", "facultyfeedback.in", "facultyfeedback.com", "localhost"];
+    const platformDomains = ["acadexa-fb.vercel.app", "acadexa.in", "acadexa.com", "localhost"];
     for (const pDomain of platformDomains) {
       if (hostname.endsWith(`.${pDomain}`)) {
         const sub = hostname.replace(`.${pDomain}`, "");
@@ -162,7 +162,7 @@ export const TenantProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     error,
     isTenantPortal: Boolean(institution),
     portalSlug: institution?.slug || currentSlug,
-    tenantName: institution?.name || "Faculty Feedback System",
+    tenantName: institution?.name || "Acadexa",
     accentColor: institution?.settings?.accentColor || "#0B3D91",
     domainRestriction: institution?.settings?.domainRestriction || "",
     isSuspended,

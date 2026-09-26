@@ -41,7 +41,7 @@ export interface IInstitutionSettings {
 export interface IInstitution extends Document {
   institutionId: string; // e.g. "INS-2026-0001"
   name: string; // Kamla Nehru Institute of Technology
-  slug: string; // "knit" -> {slug}.facultyfeedback.vercel.app
+  slug: string; // "knit" -> {slug}.acadexa-fb.vercel.app
   type: InstitutionType;
   website: string;
   officialEmail: string;
@@ -75,7 +75,7 @@ const CampusImageSchema = new Schema<ICampusImage>(
 
 const InstitutionSettingsSchema = new Schema<IInstitutionSettings>(
   {
-    systemName: { type: String, default: "Faculty Feedback" },
+    systemName: { type: String, default: "Acadexa" },
     domainRestriction: { type: String, default: "" },
     googleLoginEnabled: { type: Boolean, default: true },
     sessionTimeout: { type: Number, default: 30 },

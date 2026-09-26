@@ -24,7 +24,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, onCloseMobile }) =
   const { systemName: globalSystemName } = useSettings();
   const { institution: tenantInst, portalSlug } = useTenant();
 
-  const sysDisplayName = tenantInst?.settings?.systemName || tenantInst?.name || globalSystemName || (portalSlug ? portalSlug.toUpperCase() : "Faculty Feedback");
+  const sysDisplayName = tenantInst?.settings?.systemName || tenantInst?.name || globalSystemName || (portalSlug ? portalSlug.toUpperCase() : "Acadexa");
 
   if (!user) return null;
 
@@ -169,10 +169,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, onCloseMobile }) =
                 className="text-white font-bold text-xs truncate leading-tight"
                 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
               >
-                {sysDisplayName} System
+                {sysDisplayName}
               </div>
               <div className="text-blue-200/70 text-[10px] truncate capitalize">
-                {user.role} Portal
+                {user.role} Portal • Acadexa
               </div>
             </div>
           </div>

@@ -1,6 +1,6 @@
 # Screenshots
 
-This folder contains screenshots of the Faculty Feedback Management System for documentation purposes.
+This folder contains screenshots of the Acadexa for documentation purposes.
 
 ## Suggested Screenshots to Add
 

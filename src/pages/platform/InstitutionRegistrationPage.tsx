@@ -125,7 +125,7 @@ export const InstitutionRegistrationPage: React.FC = () => {
             </div>
             <div>
               <span className="font-bold text-slate-900 text-sm tracking-tight block leading-tight">
-                Faculty Feedback
+                Acadexa
               </span>
               <span className="text-[10px] text-slate-500 font-medium leading-none">
                 Platform Onboarding Gateway

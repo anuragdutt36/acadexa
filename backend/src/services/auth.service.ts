@@ -322,7 +322,7 @@ export class AuthService {
 
     // 3. Authorization Check: Unregistered email
     if (allMatchingRecords.length === 0) {
-      throw new CustomError("Your institutional account has not been authorized for the Faculty Feedback System. Please contact your institution administrator.", 403);
+      throw new CustomError("Your institutional account has not been authorized for Acadexa. Please contact your institution administrator.", 403);
     }
 
     // 4. Authorization Check: Inactive account status

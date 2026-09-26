@@ -1,4 +1,4 @@
-# Faculty Feedback Platform — Multi-Institution Enterprise Edition
+# Acadexa Platform — Multi-Institution Enterprise Edition
 
 > A modern, multi-tenant academic evaluation platform engineered for universities, autonomous institutes, and engineering colleges. Built with cryptographic student anonymity, NAAC/NBA compliance analytics, and strict multi-tenant data isolation.
 
@@ -12,12 +12,12 @@
 
 ## 1. Platform Architecture Overview
 
-The system establishes a clean separation between the parent **Faculty Feedback Platform** (marketing, institution onboarding, application verification, and platform-wide monitoring) and individual **Isolated Institution Portals** (student evaluations, department mapping, faculty scorecards, and NAAC/NBA accreditation reports).
+The system establishes a clean separation between the parent **Acadexa Platform** (marketing, institution onboarding, application verification, and platform-wide monitoring) and individual **Isolated Institution Portals** (student evaluations, department mapping, faculty scorecards, and NAAC/NBA accreditation reports).
 
 ```
                               ┌─────────────────────────────────────────┐
                               │         PLATFORM ROOT DOMAIN            │
-                              │       facultyfeedback.vercel.app        │
+                              │       acadexa-fb.vercel.app        │
                               └────────────────────┬────────────────────┘
                                                    │
                    ┌───────────────────────────────┴───────────────────────────────┐
@@ -62,13 +62,13 @@ The system establishes a clean separation between the parent **Faculty Feedback 
 
 ## 2. Platform vs. Institution Portals
 
-| Aspect | Faculty Feedback Platform | Individual Institution Portal (e.g. KNIT) |
+| Aspect | Acadexa Platform | Individual Institution Portal (e.g. KNIT) |
 |---|---|---|
 | **Audience** | University leaders, Deans, Platform Operators | Enrolled Students, Faculty Members, College HODs/Admins |
 | **Theme & UI** | Clean Light Academic Theme (`#FFFFFF`, `#F8FAFC`, blue `#0B3D91` accents) | Institutional Branded Theme |
 | **Authentication** | Platform Admin Login (`/platform-admin/login`) | Google Workspace SSO & College Admin (`/college/:slug/login`) |
 | **Key Actions** | Register Institution, Track Status, Review Applications, System Health | Submit Anonymous Feedback, View Subject Scorecards, NAAC/NBA Dossiers |
-| **Primary Route** | `/`, `/platform`, `/institution-login` | `/college/:slug` (or `{slug}.facultyfeedback.vercel.app`) |
+| **Primary Route** | `/`, `/platform`, `/institution-login` | `/college/:slug` (or `{slug}.acadexa-fb.vercel.app`) |
 
 ---
 
@@ -105,7 +105,7 @@ The system implements strict, passwordless authentication for institutional user
 
 ## 5. Institution-First Landing Pages & Campus Hero Backgrounds
 
-Individual institution portals (e.g. `knit.facultyfeedback.vercel.app` or `/college/knit`) are designed to feel strictly like the college's official feedback site, completely separate from platform marketing:
+Individual institution portals (e.g. `knit.acadexa-fb.vercel.app` or `/college/knit`) are designed to feel strictly like the college's official feedback site, completely separate from platform marketing:
 
 1. **Clean Academic Header**: Displays official college logo, institution name, streamlined navigation, and a single **`[Access Portal]`** CTA.
 2. **Cloudinary Campus Hero Background (1–3 Images & Automatic 7-Second Crossfade)**:
@@ -129,8 +129,8 @@ Individual institution portals (e.g. `knit.facultyfeedback.vercel.app` or `/coll
 The system seamlessly supports two routing strategies across production and local development:
 
 ### Strategy A: Subdomain-Based Routing (Production)
-- **Root Platform Landing**: `facultyfeedback.vercel.app` / `facultyfeedback.in`
-- **College-Specific Portal**: `{slug}.facultyfeedback.vercel.app` (e.g. `knit.facultyfeedback.vercel.app`)
+- **Root Platform Landing**: `acadexa-fb.vercel.app` / `acadexa.in`
+- **College-Specific Portal**: `{slug}.acadexa-fb.vercel.app` (e.g. `knit.acadexa-fb.vercel.app`)
 - When a user visits a tenant subdomain, the root `/` automatically renders the institution's dedicated portal without platform marketing.
 
 ### Strategy B: Path-Based Routing (Development & Demos)
@@ -180,14 +180,14 @@ The platform uses a clean, light-themed visual design inspired by modern institu
 
 ### Platform Administration Portal
 - **URL**: [`/platform-admin/login`](http://localhost:5173/platform-admin/login)
-- **Email / Username**: `platform.admin@facultyfeedback.in`
-- **Password**: `PlatformAdmin2026!`
+- **Email / Username**: `<Hidden for security>`
+- **Password**: `<Hidden for security>`
 - **Role**: `superadmin`
 
 ### Default College Portal (KNIT Sultanpur)
 - **URL**: [`/college/knit`](http://localhost:5173/college/knit) or [`/college/knit/login`](http://localhost:5173/college/knit/login)
-- **Admin Username**: `admin@knit.ac.in`
-- **Admin Password**: Configured via `DEFAULT_ADMIN_PASSWORD` or `Admin@123`
+- **Admin Username**: `<Hidden for security>`
+- **Admin Password**: Configured via `DEFAULT_ADMIN_PASSWORD` or `<Hidden for security>`
 - **Student Login**: Google Workspace OAuth / Enrolled institutional email
 
 ---
@@ -227,9 +227,9 @@ MONGO_URI=mongodb://127.0.0.1:27017/knit-feedback
 CORS_ORIGIN=http://localhost:5173
 ACCESS_TOKEN_SECRET=your_jwt_access_secret_key
 REFRESH_TOKEN_SECRET=your_jwt_refresh_secret_key
-DEFAULT_PLATFORM_ADMIN_EMAIL=platform.admin@facultyfeedback.in
-DEFAULT_PLATFORM_ADMIN_PASSWORD=PlatformAdmin2026!
-WEB3FORMS_ACCESS_KEY=c4466b0a-7f61-460d-a36c-9dd6774e443a
+DEFAULT_PLATFORM_ADMIN_EMAIL=<your-admin-email>
+DEFAULT_PLATFORM_ADMIN_PASSWORD=<your-admin-password>
+WEB3FORMS_ACCESS_KEY=<your-web3forms-key>
 ```
 
 ### 3. Install & Start Backend
@@ -268,7 +268,7 @@ Faculty-Feedback-Management-System/
 │   │   ├── student/                      # Student dashboard, feedback form, history
 │   │   ├── auth/                         # InstitutionLoginPage, LoginPage (KNIT), ActivateInstitutionPage
 │   │   ├── LandingPage.tsx               # Isolated KNIT / Tenant Landing Page
-│   │   └── PlatformLandingPage.tsx       # Root Faculty Feedback Platform Landing Page
+│   │   └── PlatformLandingPage.tsx       # Root Acadexa Platform Landing Page
 │   └── routes/                           # AppRouter, PlatformProtectedRoute, RoleRoute, ProtectedRoute
 │
 ├── backend/                              # Express TypeScript Backend

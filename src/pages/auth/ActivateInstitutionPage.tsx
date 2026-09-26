@@ -107,7 +107,7 @@ export const ActivateInstitutionPage: React.FC = () => {
         to: "/",
         label: "Back to Platform Home",
       }}
-      footerText="Faculty Feedback Multi-Institution Platform • Administrator Account Activation"
+      footerText="Acadexa Multi-Institution Platform • Administrator Account Activation"
     >
       {verifying ? (
         <div className="text-center py-8 text-slate-400">

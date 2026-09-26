@@ -1,6 +1,6 @@
 # API Documentation
 
-**Faculty Feedback Management System — KNIT Sultanpur**  
+**Acadexa — KNIT Sultanpur**  
 Base URL: `http://localhost:5001/api`
 
 ---

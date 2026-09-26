@@ -10,11 +10,11 @@ import { PlatformLandingPage } from "../pages/PlatformLandingPage.js";
 import { LoginPage } from "../pages/auth/LoginPage.js";
 import { InstitutionLoginPage } from "../pages/auth/InstitutionLoginPage.js";
 
-// Helper to detect if currently on a college subdomain (e.g. knit.facultyfeedback.vercel.app)
+// Helper to detect if currently on a college subdomain (e.g. knit.acadexa-fb.vercel.app)
 const isTenantSubdomain = (): boolean => {
   if (typeof window === "undefined") return false;
   const hostname = window.location.hostname.toLowerCase();
-  const platformDomains = ["facultyfeedback.vercel.app", "facultyfeedback.in", "facultyfeedback.com", "localhost"];
+  const platformDomains = ["acadexa-fb.vercel.app", "acadexa.in", "acadexa.com", "localhost"];
   for (const pDomain of platformDomains) {
     if (hostname.endsWith(`.${pDomain}`)) {
       const sub = hostname.replace(`.${pDomain}`, "");

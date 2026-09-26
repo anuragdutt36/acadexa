@@ -151,7 +151,7 @@ export const LandingPage: React.FC = () => {
   }
 
   const instName = tenantInst?.name || instituteName || "Institution";
-  const supportEmail = tenantInst?.officialEmail || (portalSlug ? `support@${portalSlug}.ac.in` : "support@facultyfeedback.in");
+  const supportEmail = tenantInst?.officialEmail || (portalSlug ? `support@${portalSlug}.ac.in` : "support@acadexa.in");
   const logoUrl = getFormattedLogoUrl(tenantInst?.logoUrl || tenantInst?.settings?.logoUrl || "");
 
   const getLoginPath = () => {
@@ -242,7 +242,7 @@ export const LandingPage: React.FC = () => {
                 {instName}
               </span>
               <span className="text-[11px] text-slate-500 font-medium">
-                Faculty Feedback System
+                Powered by Acadexa
               </span>
             </div>
           </Link>
@@ -306,7 +306,7 @@ export const LandingPage: React.FC = () => {
               <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
               <span>{instName}</span>
               <span className="text-white/40">•</span>
-              <span className="text-white/80">Academic Portal</span>
+              <span className="text-white/80">Powered by Acadexa</span>
             </div>
 
             {/* Main Title */}
@@ -314,7 +314,7 @@ export const LandingPage: React.FC = () => {
               className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight max-w-4xl leading-[1.15] text-white"
               style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
             >
-              Faculty Feedback System
+              Acadexa &amp; Evaluation Portal
             </h1>
 
             {/* Subtitle */}
@@ -556,7 +556,7 @@ export const LandingPage: React.FC = () => {
                   {instName}
                 </span>
                 <span className="text-[11px] text-slate-500 font-medium">
-                  Faculty Feedback System
+                  Powered by Acadexa
                 </span>
               </div>
             </div>
@@ -576,9 +576,9 @@ export const LandingPage: React.FC = () => {
           </div>
 
           <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-slate-500 text-[11px]">
-            <p>© {new Date().getFullYear()} {instName}. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} {instName}. Powered by Acadexa. All rights reserved.</p>
             <div className="flex items-center gap-3">
-              <span>Faculty Feedback System</span>
+              <span>Acadexa Platform</span>
               <span>•</span>
               <span>Confidential Academic Evaluation</span>
             </div>

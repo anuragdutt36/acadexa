@@ -30,8 +30,8 @@ async function checkAdityaDashboard() {
     console.log("Response:", r._id, "session:", r.feedbackSessionId, "subject:", r.subjectId, "faculty:", r.facultyId, "ratings count:", r.ratings?.length);
   }
 
-  const reportsData = await ReportsService.getFacultyFeedbackRecords(user!._id.toString());
-  console.log("reportsData from ReportsService.getFacultyFeedbackRecords:", JSON.stringify(reportsData, null, 2));
+  const reportsData = await ReportsService.getacadexaRecords(user!._id.toString());
+  console.log("reportsData from ReportsService.getacadexaRecords:", JSON.stringify(reportsData, null, 2));
 
   process.exit(0);
 }

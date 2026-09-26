@@ -1,7 +1,7 @@
 {
-  "name": "knit-faculty-feedback-backend",
+  "name": "acadexa-backend",
   "version": "1.0.0",
-  "description": "Backend for KNIT Sultanpur Faculty Feedback Management System",
+  "description": "Backend API for Acadexa — Intelligent Academic Feedback & Evaluation Platform",
   "main": "dist/server.js",
   "scripts": {
     "build": "tsc",

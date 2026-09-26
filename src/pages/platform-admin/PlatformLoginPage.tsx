@@ -62,12 +62,12 @@ export const PlatformLoginPage: React.FC = () => {
   return (
     <AuthPageLayout
       icon={<Shield className="w-6 h-6 text-[#0B3D91]" />}
-      title="Platform Administration"
+      title="Acadexa Platform Administration"
       subtitle="Sign in to manage registered institutions and platform-level settings"
       errorMessage={errorMessage}
       backLink={{
         to: "/",
-        label: "Back to Platform Home",
+        label: "Back to Acadexa Home",
       }}
     >
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -85,7 +85,7 @@ export const PlatformLoginPage: React.FC = () => {
                 setUsername(e.target.value);
                 if (errorMessage) setErrorMessage("");
               }}
-              placeholder="admin@facultyfeedback.in"
+              placeholder="admin@acadexa.in"
               className="w-full bg-white border border-slate-300 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0B3D91]/30 focus:border-[#0B3D91] transition-all"
             />
           </div>
@@ -132,7 +132,7 @@ export const PlatformLoginPage: React.FC = () => {
             </>
           ) : (
             <>
-              <span>Sign In to Platform Admin</span>
+              <span>Sign In to Acadexa Admin</span>
               <ArrowRight className="w-4 h-4" />
             </>
           )}

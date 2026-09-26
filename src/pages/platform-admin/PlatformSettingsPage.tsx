@@ -8,8 +8,8 @@ export const PlatformSettingsPage: React.FC = () => {
   const { platformAdmin } = usePlatformAuth();
   const [saved, setSaved] = useState(false);
   const [settings, setSettings] = useState({
-    platformName: "Faculty Feedback Platform",
-    supportEmail: "support@facultyfeedback.in",
+    platformName: "Acadexa",
+    supportEmail: "support@acadexa.in",
     autoVerifyEmailDomain: true,
     requireDocumentUpload: false,
     sessionTimeoutMins: 60,

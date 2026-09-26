@@ -99,7 +99,7 @@ export class InstitutionApprovalService {
             tempPassword: "Password unavailable (already provisioned)",
           },
           activationToken: application.activationToken || "",
-          activationLink: `https://facultyfeedback.vercel.app/activate-institution?token=${application.activationToken || ""}&ref=${application.referenceId}`,
+          activationLink: `https://acadexa-fb.vercel.app/activate-institution?token=${application.activationToken || ""}&ref=${application.referenceId}`,
         };
       }
     }
@@ -227,7 +227,7 @@ export class InstitutionApprovalService {
     }).catch(() => {});
 
     // 6. Record & Dispatch Activation Email via Web3Forms with graceful fallback
-    const activationLink = `https://facultyfeedback.vercel.app/activate-institution?token=${activationToken}&ref=${application.referenceId}`;
+    const activationLink = `https://acadexa-fb.vercel.app/activate-institution?token=${activationToken}&ref=${application.referenceId}`;
     await EmailNotificationService.sendApprovalActivationEmail({
       to: rootAdmin.username,
       representativeName: application.representativeName,

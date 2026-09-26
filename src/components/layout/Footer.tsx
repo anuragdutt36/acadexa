@@ -39,15 +39,15 @@ export const Footer: React.FC<FooterProps> = ({ compact = false, landing = false
           <div className="flex items-center gap-2 min-w-0">
             <LogoMark size={22} dark={isDark} className="shrink-0" />
             <div className="truncate">
-              <span className={`font-semibold ${textColor}`}>{sysName} Faculty Feedback System</span>
+              <span className={`font-semibold ${textColor}`}>{sysName}</span>
               <span className={`hidden md:inline mx-1.5 ${subTextColor}`}>·</span>
-              <span className={`hidden md:inline text-[11px] ${subTextColor}`}>{instName}</span>
+              <span className={`hidden md:inline text-[11px] ${subTextColor}`}>Powered by Acadexa</span>
             </div>
           </div>
           <div className={`flex items-center gap-3 text-[11px] ${subTextColor}`}>
             <span className="flex items-center gap-1"><Shield size={11} className="text-emerald-500" /> NAAC Ready</span>
             <span>·</span>
-            <span>© {new Date().getFullYear()} {sysName} FFMS</span>
+            <span>© {new Date().getFullYear()} {sysName} · Acadexa</span>
           </div>
         </div>
       </footer>
@@ -66,13 +66,13 @@ export const Footer: React.FC<FooterProps> = ({ compact = false, landing = false
               <LogoMark size={28} dark={isDark} className="shrink-0 w-7 h-7 sm:w-8 sm:h-8" />
               <div>
                 <h3 className={`font-bold text-xs sm:text-sm md:text-base leading-tight ${textColor}`} style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-                  {sysName} Faculty Feedback System
+                  {sysName}
                 </h3>
-                <p className={`text-[11px] sm:text-xs ${subTextColor} mt-0.5 leading-snug`}>{instName}</p>
+                <p className={`text-[11px] sm:text-xs ${subTextColor} mt-0.5 leading-snug`}>{instName} • Powered by Acadexa</p>
               </div>
             </div>
             <p className={`text-[11px] sm:text-xs leading-relaxed ${subTextColor} max-w-sm`}>
-              Official institutional feedback platform engineered for anonymous faculty evaluation, continuous academic quality enhancement, and institutional excellence.
+              Official institutional feedback platform powered by Acadexa, engineered for anonymous faculty evaluation, continuous academic quality enhancement, and institutional excellence.
             </p>
             <div className={`flex items-center gap-1.5 text-[11px] sm:text-xs font-medium ${subTextColor}`}>
               <Globe size={12} className="text-[#3B82F6] shrink-0" />
@@ -153,9 +153,9 @@ export const Footer: React.FC<FooterProps> = ({ compact = false, landing = false
 
         {/* Bottom copyright row */}
         <div className={`pt-4 sm:pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] sm:text-xs text-center sm:text-left ${subTextColor}`}>
-          <p>© {new Date().getFullYear()} {sysName} Faculty Feedback System. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} {sysName}. Powered by Acadexa. All rights reserved.</p>
           <div className="flex items-center gap-3 text-[10px] sm:text-[11px]">
-            <span>Version 2.0.0</span>
+            <span>Acadexa Platform</span>
             <span>·</span>
             <span>Accredited Portal</span>
           </div>

@@ -1,6 +1,6 @@
 # Deployment Guide
 
-**Faculty Feedback Management System**
+**Acadexa**
 
 ---
 

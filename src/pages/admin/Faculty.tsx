@@ -1063,7 +1063,7 @@ export const Faculty: React.FC = () => {
               <button
                 type="button"
                 onClick={() => {
-                  const text = `Faculty Feedback Portal Login\nURL: ${window.location.origin}/college/${portalSlug || "knit"}/login\nEmail: ${resetSuccessData.email}\nPassword: ${resetSuccessData.password}`;
+                  const text = `Acadexa Portal Login\nURL: ${window.location.origin}/college/${portalSlug || "knit"}/login\nEmail: ${resetSuccessData.email}\nPassword: ${resetSuccessData.password}`;
                   navigator.clipboard.writeText(text);
                   setCopied(true);
                   setTimeout(() => setCopied(false), 2000);
