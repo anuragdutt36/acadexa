@@ -137,47 +137,50 @@ app.use(cookieParser());
 app.use(mongoSanitize());
 
 // Global API Rate Limiting
-app.use("/api", apiLimiter);
+// Health check & Root info endpoints
+app.get(["/", "/health", "/api/health"], (req, res) => {
+  res.status(200).json({
+    status: "OK",
+    name: "Acadexa API",
+    version: "1.0.0",
+    timestamp: new Date().toISOString(),
+  });
+});
 
-// Specific strict rate limits on auth and feedback endpoints
-app.use("/api/auth/login", authLimiter);
-app.use("/api/auth/google", authLimiter);
-app.use("/api/auth/change-password", authLimiter);
-app.use("/api/feedback/token", feedbackLimiter);
-app.use("/api/feedback/submit", feedbackLimiter);
+// Create API Router
+const apiRouter = express.Router();
 
 // Apply Tenant Resolution to All College API Endpoints (Before Route Handlers)
-app.use("/api", resolveTenant);
+apiRouter.use(resolveTenant);
 
-// Mount API Routes
-app.use("/api/auth", authRoutes);
-app.use("/api/academic", academicRoutes);
-app.use("/api/profiles", profilesRoutes);
-app.use("/api/questions", questionsRoutes);
-app.use("/api/mappings", mappingsRoutes);
-app.use("/api/sessions", sessionsRoutes);
-app.use("/api/feedback", feedbackRoutes);
-app.use("/api/reports", reportsRoutes);
-app.use("/api/analytics", analyticsRoutes);
-app.use("/api/settings", settingsRoutes);
-app.use("/api/roll-mappings", rollMappingRoutes);
-app.use("/api/notifications", notificationRoutes);
-app.use("/api/platform", platformAdminRoutes);
-app.use("/api/applications", applicationRoutes);
-app.use("/api/institutions", publicInstitutionRoutes);
+// Mount API Sub-Routes
+apiRouter.use("/auth", authRoutes);
+apiRouter.use("/academic", academicRoutes);
+apiRouter.use("/profiles", profilesRoutes);
+apiRouter.use("/questions", questionsRoutes);
+apiRouter.use("/mappings", mappingsRoutes);
+apiRouter.use("/sessions", sessionsRoutes);
+apiRouter.use("/feedback", feedbackRoutes);
+apiRouter.use("/reports", reportsRoutes);
+apiRouter.use("/analytics", analyticsRoutes);
+apiRouter.use("/settings", settingsRoutes);
+apiRouter.use("/roll-mappings", rollMappingRoutes);
+apiRouter.use("/notifications", notificationRoutes);
+apiRouter.use("/platform", platformAdminRoutes);
+apiRouter.use("/applications", applicationRoutes);
+apiRouter.use("/institutions", publicInstitutionRoutes);
 
 // Student active feedback shortcut
-app.get(
-  "/api/student/active-feedback",
+apiRouter.get(
+  "/student/active-feedback",
   authenticate,
   authorize("student"),
   SessionsController.getStudentSessions
 );
 
-// Health check endpoint
-app.get("/health", (req, res) => {
-  res.status(200).json({ status: "OK", timestamp: new Date().toISOString() });
-});
+// Apply rate limiting and mount router under both /api and / (for flexible client base URLs)
+app.use("/api", apiLimiter, apiRouter);
+app.use("/", apiLimiter, apiRouter);
 
 // Centralized error handling
 app.use(errorHandler);

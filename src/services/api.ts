@@ -1,6 +1,11 @@
 const getApiBaseUrl = (): string => {
-  if (import.meta.env.VITE_API_URL) {
-    return import.meta.env.VITE_API_URL;
+  let customUrl = import.meta.env.VITE_API_URL;
+  if (customUrl && typeof customUrl === "string" && customUrl.trim() !== "") {
+    let clean = customUrl.trim().replace(/\/+$/, "");
+    if (!clean.endsWith("/api")) {
+      clean = `${clean}/api`;
+    }
+    return clean;
   }
   // When running in the browser on Vercel or production domain, use relative /api proxy
   if (typeof window !== "undefined" && window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1") {
