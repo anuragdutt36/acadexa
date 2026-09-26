@@ -1,6 +1,18 @@
 {
   "rewrites": [
     {
+      "source": "/api/:path*",
+      "destination": "https://faculty-feedback-system-y6en.onrender.com/api/:path*"
+    },
+    {
+      "source": "/health",
+      "destination": "https://faculty-feedback-system-y6en.onrender.com/health"
+    },
+    {
+      "source": "/uploads/:path*",
+      "destination": "https://faculty-feedback-system-y6en.onrender.com/uploads/:path*"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }

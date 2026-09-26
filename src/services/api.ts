@@ -1,4 +1,15 @@
-export const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5001/api";
+const getApiBaseUrl = (): string => {
+  if (import.meta.env.VITE_API_URL) {
+    return import.meta.env.VITE_API_URL;
+  }
+  // When running in the browser on Vercel or production domain, use relative /api proxy
+  if (typeof window !== "undefined" && window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1") {
+    return "/api";
+  }
+  return "http://localhost:5001/api";
+};
+
+export const API_BASE_URL = getApiBaseUrl();
 
 export const getBackendOrigin = (): string => {
   return API_BASE_URL.replace(/\/api\/?$/, "");

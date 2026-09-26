@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate, useSearchParams, Link } from "react-router";
 import {
   Building2,
   Search,
   ArrowRight,
-  ChevronRight
+  ChevronRight,
+  X,
+  RefreshCw,
+  AlertCircle
 } from "lucide-react";
 import { API_BASE_URL, getFormattedLogoUrl } from "../../services/api.js";
 import { AuthPageLayout } from "../../components/common/AuthPageLayout.js";
@@ -19,6 +22,18 @@ interface InstitutionItem {
   logoUrl?: string;
 }
 
+// Generate acronym from institution name (e.g. "Kamla Nehru Institute of Technology" -> "knit")
+function getAcronyms(name: string): string[] {
+  const words = name.replace(/[^a-zA-Z0-9\s]/g, " ").split(/\s+/).filter(Boolean);
+  const acronym = words.map(w => w[0]).join("").toLowerCase();
+  const majorAcronym = words
+    .filter(w => !["of", "and", "in", "for", "the", "at"].includes(w.toLowerCase()))
+    .map(w => w[0])
+    .join("")
+    .toLowerCase();
+  return Array.from(new Set([acronym, majorAcronym])).filter(a => a.length >= 2);
+}
+
 export const InstitutionLoginPage: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -28,51 +43,56 @@ export const InstitutionLoginPage: React.FC = () => {
   const [showDirectInput, setShowDirectInput] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [fetchFailed, setFetchFailed] = useState(false);
 
   // Check URL query parameters for preselected college
   const paramSlug = searchParams.get("slug") || searchParams.get("college") || searchParams.get("inst");
 
-  // Fetch active institutions on component mount
-  useEffect(() => {
-    const fetchInstitutions = async () => {
-      setIsLoading(true);
-      try {
-        let res = await fetch(`${API_BASE_URL}/institutions/active-tenants`);
-        if (!res.ok) {
-          res = await fetch(`${API_BASE_URL}/institutions/public-list`);
-        }
-        if (res.ok) {
-          const data = await res.json();
-          if (data.success && Array.isArray(data.data)) {
-            const mapped: InstitutionItem[] = data.data.map((item: any) => ({
-              id: item.institutionId || item._id,
-              name: item.name,
-              slug: item.slug,
-              type: item.type || "Autonomous Institute",
-              city: item.city,
-              state: item.state,
-              logoUrl: item.logoUrl,
-            }));
-            setAllInstitutions(mapped);
+  const fetchInstitutions = async () => {
+    setIsLoading(true);
+    setFetchFailed(false);
+    try {
+      let res = await fetch(`${API_BASE_URL}/institutions/active-tenants`);
+      if (!res.ok) {
+        res = await fetch(`${API_BASE_URL}/institutions/public-list`);
+      }
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success && Array.isArray(data.data)) {
+          const mapped: InstitutionItem[] = data.data.map((item: any) => ({
+            id: item.institutionId || item._id,
+            name: item.name,
+            slug: item.slug,
+            type: item.type || "Autonomous Institute",
+            city: item.city,
+            state: item.state,
+            logoUrl: item.logoUrl,
+          }));
+          setAllInstitutions(mapped);
 
-            // If paramSlug matches an institution, auto-navigate to it
-            if (paramSlug) {
-              const matched = mapped.find(
-                (i) => i.slug.toLowerCase() === paramSlug.toLowerCase()
-              );
-              if (matched) {
-                navigate(`/college/${matched.slug}`);
-              }
+          // If paramSlug matches an institution, auto-navigate to it
+          if (paramSlug) {
+            const matched = mapped.find(
+              (i) => i.slug.toLowerCase() === paramSlug.toLowerCase()
+            );
+            if (matched) {
+              navigate(`/college/${matched.slug}`);
             }
           }
         }
-      } catch (e) {
-        console.error("Failed to load institutions", e);
-      } finally {
-        setIsLoading(false);
+      } else {
+        setFetchFailed(true);
       }
-    };
+    } catch (e) {
+      console.error("Failed to load institutions", e);
+      setFetchFailed(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
+  // Fetch active institutions on component mount
+  useEffect(() => {
     fetchInstitutions();
   }, [paramSlug, navigate]);
 
@@ -86,18 +106,55 @@ export const InstitutionLoginPage: React.FC = () => {
     navigate(`/college/${cleanSlug}`);
   };
 
-  // Filter institutions by search query - MUST START WITH the query
-  const filtered = searchQuery.trim()
-    ? allInstitutions.filter((inst) => {
-        const query = searchQuery.toLowerCase();
-        return (
-          inst.name.toLowerCase().startsWith(query) ||
-          inst.slug.toLowerCase().startsWith(query) ||
-          (inst.city && inst.city.toLowerCase().startsWith(query)) ||
-          (inst.state && inst.state.toLowerCase().startsWith(query))
+  // Smart filtering logic with substring, token, and acronym matching
+  const filtered = useMemo(() => {
+    const rawQuery = searchQuery.trim().toLowerCase();
+    if (!rawQuery) return allInstitutions;
+
+    const tokens = rawQuery.split(/\s+/).filter(Boolean);
+
+    return allInstitutions
+      .map((inst) => {
+        const nameLower = inst.name.toLowerCase();
+        const slugLower = inst.slug.toLowerCase();
+        const cityLower = (inst.city || "").toLowerCase();
+        const stateLower = (inst.state || "").toLowerCase();
+        const idLower = (inst.id || "").toLowerCase();
+        const acronyms = getAcronyms(inst.name);
+
+        const fullSearchString = `${nameLower} ${slugLower} ${cityLower} ${stateLower} ${idLower} ${acronyms.join(" ")}`;
+
+        // Check if all tokens match anywhere in the combined metadata
+        const matchesAllTokens = tokens.every(
+          (t) =>
+            fullSearchString.includes(t) ||
+            acronyms.some((ac) => ac.startsWith(t))
         );
+
+        if (!matchesAllTokens) return null;
+
+        // Calculate relevance score
+        let score = 0;
+        if (slugLower === rawQuery) score += 100;
+        if (slugLower.startsWith(rawQuery)) score += 50;
+        if (nameLower.startsWith(rawQuery)) score += 40;
+        if (acronyms.includes(rawQuery)) score += 45;
+        if (nameLower.includes(rawQuery)) score += 20;
+        if (cityLower.startsWith(rawQuery)) score += 15;
+
+        return { inst, score };
       })
-    : allInstitutions;
+      .filter((item): item is { inst: InstitutionItem; score: number } => item !== null)
+      .sort((a, b) => b.score - a.score)
+      .map((item) => item.inst);
+  }, [allInstitutions, searchQuery]);
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && filtered.length === 1) {
+      e.preventDefault();
+      navigate(`/college/${filtered[0].slug}`);
+    }
+  };
 
   return (
     <AuthPageLayout
@@ -126,23 +183,58 @@ export const InstitutionLoginPage: React.FC = () => {
                   setSearchQuery(e.target.value);
                   setErrorMsg("");
                 }}
-                placeholder="Search by college name, city or code..."
+                onKeyDown={handleKeyDown}
+                placeholder="Search by college name, acronym (KNIT, IIT), city..."
                 autoFocus
-                className="w-full bg-white border border-slate-300 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0B3D91]/30 focus:border-[#0B3D91] transition-all"
+                className="w-full bg-white border border-slate-300 rounded-xl pl-10 pr-10 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0B3D91]/30 focus:border-[#0B3D91] transition-all"
               />
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 rounded-md"
+                  aria-label="Clear search"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
             </div>
           </div>
 
-          {/* Institution List (Only shown when search query is entered) */}
-          {searchQuery.trim().length > 0 ? (
-            <div className="space-y-2 max-h-64 overflow-y-auto pr-1">
-              {isLoading ? (
-                <div className="text-center py-6 text-sm text-slate-400 bg-slate-50 rounded-xl border border-slate-200">
-                  <div className="w-6 h-6 border-2 border-blue-600/30 border-t-blue-600 rounded-full animate-spin mx-auto mb-2" />
-                  Searching active institutions...
+          {/* Institution List */}
+          <div className="space-y-2 max-h-72 overflow-y-auto pr-1">
+            {isLoading ? (
+              <div className="text-center py-6 text-sm text-slate-400 bg-slate-50 rounded-xl border border-slate-200">
+                <div className="w-6 h-6 border-2 border-blue-600/30 border-t-blue-600 rounded-full animate-spin mx-auto mb-2" />
+                Connecting to institutions directory...
+              </div>
+            ) : fetchFailed ? (
+              <div className="p-4 bg-amber-50 rounded-xl border border-amber-200 text-center space-y-2">
+                <div className="flex items-center justify-center gap-1.5 text-amber-800 text-xs font-semibold">
+                  <AlertCircle className="w-4 h-4" />
+                  <span>Unable to load institutions directory</span>
                 </div>
-              ) : filtered.length > 0 ? (
-                filtered.map((inst) => (
+                <p className="text-xs text-amber-700">
+                  The backend service may be waking up. Please retry in a moment.
+                </p>
+                <button
+                  type="button"
+                  onClick={fetchInstitutions}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-amber-300 rounded-lg text-xs font-semibold text-amber-900 hover:bg-amber-100 transition-colors cursor-pointer"
+                >
+                  <RefreshCw className="w-3.5 h-3.5" />
+                  Retry
+                </button>
+              </div>
+            ) : filtered.length > 0 ? (
+              <div className="space-y-2">
+                <div className="flex items-center justify-between text-xs text-slate-500 px-1 font-medium">
+                  <span>{searchQuery.trim() ? `Search Results (${filtered.length})` : `Available Institutions (${filtered.length})`}</span>
+                  {filtered.length === 1 && searchQuery.trim() && (
+                    <span className="text-[11px] text-blue-600">Press Enter to select</span>
+                  )}
+                </div>
+                {filtered.map((inst) => (
                   <button
                     key={inst.id || inst.slug}
                     type="button"
@@ -171,29 +263,21 @@ export const InstitutionLoginPage: React.FC = () => {
                           <span className="font-mono text-slate-600 bg-slate-100 px-1.5 py-0.5 rounded text-[11px]">
                             /{inst.slug}
                           </span>
-                          {inst.city && <span>• {inst.city}, {inst.state || ""}</span>}
+                          {inst.city && <span>• {inst.city}{inst.state ? `, ${inst.state}` : ""}</span>}
                         </div>
                       </div>
                     </div>
                     <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-[#0B3D91] group-hover:translate-x-0.5 transition-all shrink-0" />
                   </button>
-                ))
-              ) : (
-                <div className="text-center py-4 px-3 text-sm text-slate-500 bg-slate-50 rounded-xl border border-slate-200">
-                  No matching institutions found for &ldquo;<span className="font-semibold text-slate-700">{searchQuery}</span>&rdquo;.
-                </div>
-              )}
-            </div>
-          ) : (
-            /* Clean initial state prompt when no search query has been typed yet */
-            <div className="text-center py-5 px-4 bg-slate-50/60 rounded-xl border border-dashed border-slate-200 text-slate-500">
-              <Search className="w-5 h-5 text-slate-400 mx-auto mb-1.5" />
-              <p className="text-sm font-semibold text-slate-700">Type to find your institution</p>
-              <p className="text-xs text-slate-400 mt-0.5">
-                Enter college name, city, or institution code (e.g. KNIT, REC Banda)
-              </p>
-            </div>
-          )}
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-6 px-3 text-sm text-slate-500 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+                <p>No matching institutions found for &ldquo;<span className="font-semibold text-slate-700">{searchQuery}</span>&rdquo;.</p>
+                <p className="text-xs text-slate-400">Try searching by college code, city, or check the spelling.</p>
+              </div>
+            )}
+          </div>
 
           {/* Direct Institution Code Option */}
           <div className="pt-2 border-t border-slate-100 text-center">
@@ -219,7 +303,7 @@ export const InstitutionLoginPage: React.FC = () => {
                       setCustomSlug(e.target.value);
                       setErrorMsg("");
                     }}
-                    placeholder="e.g. knit or recbanda"
+                    placeholder="e.g. knit or iiid"
                     className="flex-1 bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-900 font-mono focus:outline-none focus:ring-2 focus:ring-[#0B3D91]/30 focus:border-[#0B3D91]"
                   />
                   <button
