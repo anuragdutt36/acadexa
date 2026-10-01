@@ -306,7 +306,7 @@ export const LandingPage: React.FC = () => {
               <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
               <span>{instName}</span>
               <span className="text-white/40">•</span>
-              <span className="text-white/80">Powered by Acadexa</span>
+              <span className="text-white/80">Academic Portal</span>
             </div>
 
             {/* Main Title */}
@@ -314,7 +314,7 @@ export const LandingPage: React.FC = () => {
               className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight max-w-4xl leading-[1.15] text-white"
               style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
             >
-              Acadexa &amp; Evaluation Portal
+              Faculty Evaluation Portal
             </h1>
 
             {/* Subtitle */}

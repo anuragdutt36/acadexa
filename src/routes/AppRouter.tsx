@@ -78,12 +78,15 @@ import { SubjectPerformance } from "../pages/hod/SubjectPerformance.js";
 import { FeedbackTrends } from "../pages/hod/FeedbackTrends.js";
 import { DeanHodReports } from "../pages/hod/DeanHodReports.js";
 import { DeanHodProfile } from "../pages/hod/DeanHodProfile.js";
+import { RouteTransitionLoader } from "../components/common/RouteTransitionLoader.js";
 
 export const AppRouter: React.FC = () => {
   const hasSubdomain = isTenantSubdomain();
 
   return (
-    <Routes>
+    <>
+      <RouteTransitionLoader />
+      <Routes>
       {/* Public Platform & College Root Routes */}
       <Route
         path="/"
@@ -328,6 +331,7 @@ export const AppRouter: React.FC = () => {
       {/* Fallback Catch-All */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
+    </>
   );
 };
 
